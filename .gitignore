@@ -8,3 +8,9 @@ fraud-detection-env/
 .azure/
 local.settings.json
 "@ | Set-Content .gitignore
+# Large data files
+ml_training/data/
+ml_training/models/
+*.csv
+*.zip
+*.joblib
