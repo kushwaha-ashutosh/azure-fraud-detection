@@ -36,18 +36,29 @@ def enrich_transaction(txn: dict) -> dict:
     return enriched
 
 def call_ml_inference(enriched: dict) -> dict:
-    """Call the ML inference Function."""
+    """Call the ML inference Function with retry logic."""
     import urllib.request
+    import urllib.error
     features = {f: enriched.get(f, 0.0) for f in NUMERICAL_FEATURES}
     payload = json.dumps({"features": features}).encode()
-    req = urllib.request.Request(
-        ML_INFERENCE_URL,
-        data=payload,
-        headers={"Content-Type": "application/json"},
-        method="POST"
-    )
-    with urllib.request.urlopen(req, timeout=10) as resp:
-        return json.loads(resp.read())
+    
+    for attempt in range(3):
+        try:
+            req = urllib.request.Request(
+                ML_INFERENCE_URL,
+                data=payload,
+                headers={"Content-Type": "application/json"},
+                method="POST"
+            )
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                return json.loads(resp.read())
+        except Exception as e:
+            logging.warning(f"ML inference attempt {attempt+1} failed: {e}")
+            if attempt == 2:
+                logging.error("All retries failed, using default score")
+                return {"fraud_score": 0.0, "is_fraud": False}
+            import time
+            time.sleep(2 ** attempt)
 
 def write_to_blob(scored: dict):
     """Write scored transaction to Blob Storage as JSON."""
