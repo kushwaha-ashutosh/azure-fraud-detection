@@ -1,0 +1,10 @@
+@"
+.env
+__pycache__/
+*.pyc
+*.joblib
+.venv/
+fraud-detection-env/
+.azure/
+local.settings.json
+"@ | Set-Content .gitignore
