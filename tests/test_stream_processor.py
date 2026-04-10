@@ -4,9 +4,12 @@ from unittest.mock import patch, MagicMock
 
 import sys
 import os
-sys.path.insert(0, os.path.abspath("functions/stream_processor"))
-
-from function_app import enrich_transaction, NUMERICAL_FEATURES
+import importlib.util
+spec = importlib.util.spec_from_file_location("stream_processor", "functions/stream_processor/function_app.py")
+mod = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(mod)
+enrich_transaction = mod.enrich_transaction
+NUMERICAL_FEATURES = mod.NUMERICAL_FEATURES
 
 def make_txn():
     return {
