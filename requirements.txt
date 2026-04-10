@@ -36,6 +36,7 @@ Pygments==2.20.0
 PyJWT==2.12.1
 pytest==9.0.3
 python-dateutil==2.9.0.post0
+python-dotenv==1.2.2
 pytokens==0.4.1
 pytz==2026.1.post1
 requests==2.33.1
