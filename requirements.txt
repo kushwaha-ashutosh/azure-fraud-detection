@@ -8,6 +8,7 @@ async-lru==2.3.0
 attrs==26.1.0
 azure-core==1.39.0
 azure-cosmos==4.15.0
+azure-functions==1.24.0
 azure-identity==1.25.3
 azure-keyvault-secrets==4.10.0
 azure-servicebus==7.14.3
@@ -152,5 +153,6 @@ wcwidth==0.6.0
 webcolors==25.10.0
 webencodings==0.5.1
 websocket-client==1.9.0
+Werkzeug==3.1.8
 widgetsnbextension==4.0.15
 xgboost==3.2.0
