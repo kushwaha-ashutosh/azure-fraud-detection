@@ -1,7 +1,6 @@
 import json
 import time
 import argparse
-import os
 from dotenv import load_dotenv
 from simulator.generator import generate_transaction
 
@@ -22,6 +21,7 @@ def main():
     sender = None
     if args.output == "servicebus":
         from simulator.servicebus_sender import get_sender, send_transaction
+
         sender = get_sender()
         print("Connected to Service Bus queue: raw-transactions")
 

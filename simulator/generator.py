@@ -1,4 +1,3 @@
-
 import random
 import uuid
 from datetime import datetime, timezone
@@ -13,6 +12,7 @@ CARD_TYPES = ["Credit", "Debit"]
 CARD_BRANDS = ["Visa", "Mastercard", "Rupay", "Amex"]
 CARD_COUNTRIES = ["IN", "US", "GB", "SG", "AE"]
 MERCHANT_CATEGORIES = [5411, 5541, 5812, 5999, 7011, 4111, 6011]
+
 
 def generate_transaction(fraud_rate=0.02):
     is_fraud = random.random() < fraud_rate
@@ -36,6 +36,7 @@ def generate_transaction(fraud_rate=0.02):
         was_3ds_successful=random.choice([True, False]),
         is_fraud=is_fraud,
     )
+
 
 def generate_batch(count=100, fraud_rate=0.02):
     return [generate_transaction(fraud_rate) for _ in range(count)]

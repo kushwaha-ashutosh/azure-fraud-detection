@@ -13,15 +13,18 @@ COSMOS_KEY = os.environ.get("COSMOS_KEY", "")
 COSMOS_DATABASE = "frauddetection"
 COSMOS_CONTAINER = "features"
 
+
 def get_pipeline_status():
     from azure.storage.blob import BlobServiceClient
+
     client = BlobServiceClient.from_connection_string(STORAGE_CONN)
     container = client.get_container_client(OUTPUT_CONTAINER)
     blobs = list(container.list_blobs(name_starts_with="processed/"))
     return {
         "processed_files": len([b for b in blobs if b.name.endswith(".json")]),
-        "last_run": datetime.now(timezone.utc).isoformat()
+        "last_run": datetime.now(timezone.utc).isoformat(),
     }
+
 
 if __name__ == "__main__":
     status = get_pipeline_status()
